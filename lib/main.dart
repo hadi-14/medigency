@@ -10,12 +10,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(100),
           child: AppBar(
             backgroundColor: Colors.red,
             elevation: 0.0,
             flexibleSpace: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xFF808080), // Gray color in hex
               ),
               child: Padding(
@@ -25,21 +25,20 @@ class MyApp extends StatelessWidget {
                   children: [
                     // Logo Placeholder
                     Container(
-                      width: 50, // Set your desired width
+                      width: 150, // Set your desired width
                       height: 50, // Set your desired height
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/your_logo.png'), // Replace with your logo
-                          fit: BoxFit.contain,
+                          image: AssetImage('assets/logo_text.png'), // Replace with your logo
                         ),
                       ),
                     ),
                     // Profile Icon and Name
-                    Row(
+                    const Row(
                       children: [
-                        CircleAvatar(
-                          // Profile Icon
-                          backgroundImage: AssetImage('assets/profile_icon.png'), // Replace with your profile icon
+                        Icon(
+                          Icons.person_rounded,
+                          size: 25,
                         ),
                         SizedBox(width: 8),
                         Text(
@@ -58,44 +57,44 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Hello!', // Larger text
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 'Abdullah', // Next line text
                 style: TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Button 1
                   ElevatedButton(
                     onPressed: () {},
-                    child: Text('Button 1'),
+                    child: const Text('Button 1'),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   // Button 2 (Red color)
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       primary: Colors.red,
                     ),
-                    child: Text('Button 2'),
+                    child: const Text('Button 2'),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   // Button 3
                   ElevatedButton(
                     onPressed: () {},
-                    child: Text('Button 3'),
+                    child: const Text('Button 3'),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   // Button 4
                   ElevatedButton(
                     onPressed: () {},
-                    child: Text('Button 4'),
+                    child: const Text('Button 4'),
                   ),
                 ],
               ),
