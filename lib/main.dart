@@ -10,13 +10,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(37),
           child: AppBar(
             backgroundColor: Colors.red,
             elevation: 0.0,
             flexibleSpace: Container(
               decoration: const BoxDecoration(
-                color: Color(0xFF808080), // Gray color in hex
+                color: Color(0xFFb7b6b6), // Gray color in hex
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
                       height: 50, // Set your desired height
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/logo_text.png'), // Replace with your logo
+                          image: AssetImage(
+                              'assets/logo_text.png'), // Replace with your logo
                         ),
                       ),
                     ),
@@ -67,15 +68,18 @@ class MyApp extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 32),
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Button 1
                   ElevatedButton(
                     onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFb7b6b6),
+                    ),
                     child: const Text('Button 1'),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 30),
                   // Button 2 (Red color)
                   ElevatedButton(
                     onPressed: () {},
@@ -88,12 +92,18 @@ class MyApp extends StatelessWidget {
                   // Button 3
                   ElevatedButton(
                     onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFb7b6b6),
+                    ),
                     child: const Text('Button 3'),
                   ),
                   const SizedBox(width: 16),
                   // Button 4
                   ElevatedButton(
                     onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFb7b6b6),
+                    ),
                     child: const Text('Button 4'),
                   ),
                 ],
