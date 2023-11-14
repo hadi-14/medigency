@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'chat.dart';
 
 void main() {
   runApp(const MyApp());
@@ -93,7 +94,9 @@ class MyApp extends StatelessWidget {
                       children: [
                         // Button 1
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Handle the onPressed for Button 1
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFb7b6b6),
                             foregroundColor:
@@ -123,7 +126,14 @@ class MyApp extends StatelessWidget {
                         const SizedBox(height: 16),
                         // Button 2 (Red color)
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ChatPage(),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                             minimumSize: const Size(double.infinity,
@@ -149,7 +159,9 @@ class MyApp extends StatelessWidget {
                         const SizedBox(height: 16),
                         // Button 3
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Handle the onPressed for Button 3
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFb7b6b6),
                             foregroundColor:
@@ -179,7 +191,9 @@ class MyApp extends StatelessWidget {
                         const SizedBox(height: 16),
                         // Button 4
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Handle the onPressed for Button 4
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFb7b6b6),
                             foregroundColor:
