@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'chat.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,13 +47,14 @@ class MyApp extends StatelessWidget {
                             Icon(
                               Icons.person_rounded,
                               size: 35,
-                              color: Colors.black,
+                              color: Color.fromARGB(255, 112, 112, 112),
                             ),
                             SizedBox(height: 3),
                             Text(
                               'Abdullah', // Replace with the actual name
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 10),
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 112, 112, 112),
+                                  fontSize: 10),
                             ),
                           ],
                         ),
@@ -93,7 +95,9 @@ class MyApp extends StatelessWidget {
                       children: [
                         // Button 1
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Handle the onPressed for Button 1
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFb7b6b6),
                             foregroundColor:
@@ -123,7 +127,14 @@ class MyApp extends StatelessWidget {
                         const SizedBox(height: 16),
                         // Button 2 (Red color)
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ChatPage(),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                             minimumSize: const Size(double.infinity,
@@ -149,7 +160,9 @@ class MyApp extends StatelessWidget {
                         const SizedBox(height: 16),
                         // Button 3
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Handle the onPressed for Button 3
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFb7b6b6),
                             foregroundColor:
@@ -179,7 +192,9 @@ class MyApp extends StatelessWidget {
                         const SizedBox(height: 16),
                         // Button 4
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Handle the onPressed for Button 4
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFb7b6b6),
                             foregroundColor:
