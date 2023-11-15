@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'chat.dart';
 import 'home.dart';
+import 'help.dart';
+import 'map.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,8 +17,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomeScreen(),
         '/chat': (context) => const ChatPage(),
-        '/chat': (context) => const ChatPage(),
-        // Define other routes
+        '/help': (context) => const HelpPage(),
+        '/map': (context) => const MapPage(),
       },
     );
   }

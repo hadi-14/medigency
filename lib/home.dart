@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'chat.dart';
+import 'help.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key});
@@ -92,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                         // Button 1
                         ElevatedButton(
                           onPressed: () {
-                            // Handle the onPressed for Button 1
+                            Navigator.pushNamed(context, '/map');
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFb7b6b6),
@@ -123,7 +124,9 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(height: 16),
                         // Button 2 (Red color)
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/help');
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                             minimumSize: const Size(double.infinity,
