@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'chat.dart';
 import 'home.dart';
+import 'help.dart';
 
 void main() {
   runApp(MyApp());

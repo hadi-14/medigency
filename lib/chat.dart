@@ -84,8 +84,7 @@ class ChatBot extends StatefulWidget {
 
 class _ChatBotState extends State<ChatBot> {
   final List<ChatMessage> _messages = [];
-  final String openAIKey =
-      '<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>';
+  final String openAIKey = '<key>';
 
   get sk => null; // Replace with your OpenAI API Key
 
@@ -96,11 +95,11 @@ class _ChatBotState extends State<ChatBot> {
 
     if (isUser) {
       try {
+        var key;
         final response = await http.post(
           Uri.parse('https://api.openai.com/v1/chat/completions'),
           headers: {
-            'Authorization':
-                'Bearer $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',
+            'Authorization': 'Bearer $key',
             'Content-Type': 'application/json',
           },
           body: jsonEncode({
