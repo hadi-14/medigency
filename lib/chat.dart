@@ -119,7 +119,7 @@ class _ChatBotState extends State<ChatBot> {
             ),
           ),
         ),
-        // Input field for user to type messages
+        // Input field for the user to type messages
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
