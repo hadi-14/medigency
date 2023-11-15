@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomeScreen(),
         '/chat': (context) => const ChatPage(),
+        '/chat': (context) => const ChatPage(),
         // Define other routes
       },
     );
