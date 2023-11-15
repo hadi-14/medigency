@@ -84,7 +84,8 @@ class ChatBot extends StatefulWidget {
 
 class _ChatBotState extends State<ChatBot> {
   final List<ChatMessage> _messages = [];
-  final String openAIKey = '<key>';
+  final String openAIKey =
+      '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';
 
   get sk => null; // Replace with your OpenAI API Key
 
@@ -163,7 +164,7 @@ class _ChatBotState extends State<ChatBot> {
               _addMessage(text, true);
             },
             decoration: InputDecoration(
-              hintText: 'Type a message...',
+              hintText: 'Ask your problem....',
               suffixIcon: IconButton(
                 icon: const Icon(
                   Icons.send,

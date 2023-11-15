@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                         // Button 1
                         ElevatedButton(
                           onPressed: () {
-                            // Handle the onPressed for Button 1
+                            Navigator.pushNamed(context, '/map');
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFb7b6b6),
