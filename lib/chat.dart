@@ -81,7 +81,7 @@ class ChatBot extends StatefulWidget {
 class _ChatBotState extends State<ChatBot> {
   final List<ChatMessage> _messages = [];
   final String openAIKey =
-      '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'; // Replace with your OpenAI API Key
+      '<API_KEY>'; // Replace with your OpenAI API Key
 
   void _addMessage(String text, bool isUser) async {
     setState(() {
