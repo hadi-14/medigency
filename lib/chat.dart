@@ -45,13 +45,13 @@ class ChatPage extends StatelessWidget {
                             Icon(
                               Icons.person_rounded,
                               size: 35,
-                              color: Colors.black,
+                              color: Color.fromARGB(255, 112, 112, 112),
                             ),
                             SizedBox(height: 3),
                             Text(
                               'Abdullah',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color.fromARGB(255, 112, 112, 112),
                                 fontSize: 10,
                               ),
                             ),
@@ -63,7 +63,11 @@ class ChatPage extends StatelessWidget {
                 ),
               ),
             ),
-            body: const ChatBot(),
+            body: Container(
+              padding:
+                  const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+              child: ChatBot(),
+            ),
           ),
         ),
       ),
@@ -81,7 +85,9 @@ class ChatBot extends StatefulWidget {
 class _ChatBotState extends State<ChatBot> {
   final List<ChatMessage> _messages = [];
   final String openAIKey =
-      '<API_KEY>'; // Replace with your OpenAI API Key
+      '<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>';
+
+  get sk => null; // Replace with your OpenAI API Key
 
   void _addMessage(String text, bool isUser) async {
     setState(() {
@@ -93,7 +99,8 @@ class _ChatBotState extends State<ChatBot> {
         final response = await http.post(
           Uri.parse('https://api.openai.com/v1/chat/completions'),
           headers: {
-            'Authorization': 'Bearer $openAIKey',
+            'Authorization':
+                'Bearer $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',
             'Content-Type': 'application/json',
           },
           body: jsonEncode({
@@ -104,10 +111,7 @@ class _ChatBotState extends State<ChatBot> {
                 "content":
                     "You are a Skilled doctor with speciality in maternity help"
               },
-              {
-                "role": "user",
-                "content":text
-              }
+              {"role": "user", "content": text}
             ]
           }),
         );
@@ -135,19 +139,25 @@ class _ChatBotState extends State<ChatBot> {
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ListView.builder(
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                final message = _messages[index];
-                return message.isUser
-                    ? UserMessage(message.text)
-                    : BotMessage(message.text);
-              },
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: SingleChildScrollView(
+              reverse: true,
+              child: Column(
+                children: _messages.map((message) {
+                  return message.isUser
+                      ? UserMessage(message.text)
+                      : BotMessage(message.text);
+                }).toList(),
+              ),
             ),
           ),
         ),
-        Padding(
+        Container(
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 216, 216, 216), // Light gray color
+            borderRadius:
+                BorderRadius.circular(30.0), // Optional: Add rounded corners
+          ),
           padding: const EdgeInsets.all(16.0),
           child: TextField(
             onSubmitted: (text) {
@@ -156,7 +166,10 @@ class _ChatBotState extends State<ChatBot> {
             decoration: InputDecoration(
               hintText: 'Type a message...',
               suffixIcon: IconButton(
-                icon: const Icon(Icons.send),
+                icon: const Icon(
+                  Icons.send,
+                  color: Colors.red, // Set the color to red
+                ),
                 onPressed: () {
                   // TODO: Handle sending the message
                 },
