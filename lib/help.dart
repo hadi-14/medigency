@@ -24,18 +24,22 @@ class HelpPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Logo Placeholder
-                        Container(
-                          width: 150, // Set your desired width
-                          height: 50, // Set your desired height
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/logo_text.png'), // Replace with your logo
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pop(); // Navigate to main page
+                          },
+                          child: Container(
+                            width: 150, // Set your desired width
+                            height: 50, // Set your desired height
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/logo_text.png'), // Replace with your logo
+                              ),
                             ),
                           ),
-                        ),
-                        // Profile Icon and Name
+                        ), // Profile Icon and Name
                         const Column(
                           children: [
                             SizedBox(height: 2),

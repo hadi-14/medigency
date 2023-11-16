@@ -87,12 +87,19 @@ class _MapPageState extends State<MapPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 150,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/logo_text.png'),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pop(); // Navigate to main page
+                          },
+                          child: Container(
+                            width: 150, // Set your desired width
+                            height: 50, // Set your desired height
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/logo_text.png'), // Replace with your logo
+                              ),
                             ),
                           ),
                         ),

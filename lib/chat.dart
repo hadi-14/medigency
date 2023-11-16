@@ -26,15 +26,21 @@ class ChatPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 150,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/logo_text.png'),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop(); // Navigate to main page
+                          },
+                          child: Container(
+                            width: 150, // Set your desired width
+                            height: 50, // Set your desired height
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/logo_text.png'), // Replace with your logo
+                              ),
                             ),
                           ),
-                        ),
+                        ), // Profile Icon and Name
                         const Column(
                           children: [
                             SizedBox(height: 2),
@@ -62,7 +68,7 @@ class ChatPage extends StatelessWidget {
             body: Container(
               padding:
                   const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-              child: ChatBot(),
+              child: const ChatBot(),
             ),
           ),
         ),
@@ -80,7 +86,7 @@ class ChatBot extends StatefulWidget {
 
 class _ChatBotState extends State<ChatBot> {
   final List<ChatMessage> _messages = [];
-  final String openAIKey = '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'; // Replace with your OpenAI API Key
+  final TextEditingController _controller = TextEditingController();
 
   void _addMessage(String text, bool isUser) async {
     setState(() {
@@ -147,27 +153,38 @@ class _ChatBotState extends State<ChatBot> {
         ),
         Container(
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 216, 216, 216), // Light gray color
-            borderRadius:
-                BorderRadius.circular(30.0), // Optional: Add rounded corners
+            color: const Color.fromARGB(255, 216, 216, 216), // Light gray color
+            borderRadius: BorderRadius.circular(30.0), // Optional: Add rounded corners
           ),
           padding: const EdgeInsets.all(16.0),
-          child: TextField(
-            onSubmitted: (text) {
-              _addMessage(text, true);
-            },
-            decoration: InputDecoration(
-              hintText: 'Ask your problem....',
-              suffixIcon: IconButton(
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  onSubmitted: (text) {
+                    _addMessage(text, true);
+                    _controller.clear(); // Clear the text field after sending the message
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Ask your problem....',
+                  ),
+                ),
+              ),
+              IconButton(
                 icon: const Icon(
                   Icons.send,
-                  color: Colors.red, // Set the color to red
+                  color: Colors.red,
                 ),
                 onPressed: () {
-                  // TODO: Handle sending the message
+                  final textToSend = _controller.text.trim();
+                  if (textToSend.isNotEmpty) {
+                    _addMessage(textToSend, true);
+                    _controller.clear(); // Clear the text field after sending the message
+                  }
                 },
               ),
-            ),
+            ],
           ),
         ),
       ],
