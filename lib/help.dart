@@ -92,19 +92,21 @@ class HelpPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(
                               60), // Set the border radius to make it rounded
                         ),
-                        child: Center(
+                        child: const Center(
                           child: CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(Colors
                                 .white), // Set the progress bar color to white
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
-                      Text(
-                        'Bringing Your Help...',
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Bringing Your Help...\nPlease be patient!',
                         style: TextStyle(
                             fontSize: 30,
-                            color: Colors.red), // Set the text color to white
+                            color: Colors.red,
+                        ), // Set the text color to white
+                        textAlign: TextAlign.center
                       ),
                     ],
                   ),

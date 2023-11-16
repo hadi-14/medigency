@@ -90,36 +90,50 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Button 1
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/map');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFb7b6b6),
-                            foregroundColor:
-                                const Color.fromARGB(255, 112, 112, 112),
-                            minimumSize: const Size(double.infinity,
-                                120), // Adjust the height as needed
-                            padding: const EdgeInsets.symmetric(
-                                horizontal:
-                                    32), // Adjust the horizontal padding as needed
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  20.0), // Adjust the border radius
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.location_pin, size: 80),
-                              SizedBox(width: 8),
-                              Text(
-                                ' F i n d  a\nHOSPITAL',
-                                style: TextStyle(fontSize: 30),
+                        // Button 1 with a crown/star icon
+                        Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/map');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFb7b6b6),
+                                foregroundColor:
+                                    const Color.fromARGB(255, 112, 112, 112),
+                                minimumSize: const Size(double.infinity,
+                                    120), // Adjust the height as needed
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal:
+                                        32), // Adjust the horizontal padding as needed
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      20.0), // Adjust the border radius
+                                ),
                               ),
-                            ],
-                          ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.location_pin, size: 80),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    ' F i n d  a\nHOSPITAL',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Positioned(
+                              top: 5,
+                              right: 5,
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 30,
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 16),
                         // Button 2 (Red color)
@@ -182,39 +196,53 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        // Button 4
-                        ElevatedButton(
-                          onPressed: () {
-                            // Handle the onPressed for Button 4
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFb7b6b6),
-                            foregroundColor:
-                                const Color.fromARGB(255, 112, 112, 112),
-                            minimumSize: const Size(double.infinity,
-                                120), // Adjust the height as needed
-                            padding: const EdgeInsets.symmetric(
-                                horizontal:
-                                    32), // Adjust the horizontal padding as needed
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  20.0), // Adjust the border radius
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.phone, size: 80),
-                              SizedBox(width: 8),
-                              Text(
-                                'C a l l  a\nDOCTOR',
-                                style: TextStyle(
-                                  fontSize: 30,
+                        // Button 4 with a crown/star icon
+                        Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                // Handle the onPressed for Button 4
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFb7b6b6),
+                                foregroundColor:
+                                    const Color.fromARGB(255, 112, 112, 112),
+                                minimumSize: const Size(double.infinity,
+                                    120), // Adjust the height as needed
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal:
+                                        32), // Adjust the horizontal padding as needed
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      20.0), // Adjust the border radius
                                 ),
-                                // textAlign: TextAlign.justify,
                               ),
-                            ],
-                          ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.phone, size: 80),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'C a l l  a\nDOCTOR',
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                    ),
+                                    // textAlign: TextAlign.justify,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Positioned(
+                              top: 5,
+                              right: 5,
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 30,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

@@ -126,7 +126,7 @@ class _ChatBotState extends State<ChatBot> {
         }
       } catch (e) {
         print('Error: $e');
-        _addMessage('Sorry, I encountered an issue. Please try again.', false);
+        _addMessage('Hi, I am Medigency!, take care of yourself and others', false);
       }
     }
   }
