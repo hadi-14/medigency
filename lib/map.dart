@@ -1,13 +1,70 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-void main() {
-  runApp(const ChatPage());
+class MapPage extends StatefulWidget {
+  @override
+  _MapPageState createState() => _MapPageState();
 }
 
-class ChatPage extends StatelessWidget {
-  const ChatPage({Key? key}) : super(key: key);
+class _MapPageState extends State<MapPage> {
+  List<Marker> hospitalMarkers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchNearbyHospitals();
+  }
+
+  Future<void> fetchNearbyHospitals() async {
+    // Get current location
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+
+    // Fetch nearby hospitals using Google Places API
+    String apiKey = 'YOUR_GOOGLE_PLACES_API_KEY';
+    String apiUrl =
+        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
+        'location=${position.latitude},${position.longitude}'
+        '&radius=5000&type=hospital&key=$apiKey';
+
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final results = data['results'] as List<dynamic>;
+
+      for (var result in results) {
+        final name = result['name'];
+        final placeId = result['place_id'];
+        final geometry = result['geometry'];
+        final location = geometry['location'];
+
+        final lat = location['lat'];
+        final lng = location['lng'];
+
+        final hospitalMarker = Marker(
+          width: 40.0,
+          height: 40.0,
+          point: LatLng(lat, lng),
+          child: Icon(
+            Icons.local_hospital,
+            color: Colors.red,
+          ),
+        );
+
+        setState(() {
+          hospitalMarkers.add(hospitalMarker);
+        });
+      }
+    } else {
+      throw Exception('Failed to fetch hospitals');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,176 +120,22 @@ class ChatPage extends StatelessWidget {
                 ),
               ),
             ),
-            body: Container(
-              padding:
-                  const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-              child: ChatBot(),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ChatBot extends StatefulWidget {
-  const ChatBot({Key? key}) : super(key: key);
-
-  @override
-  _ChatBotState createState() => _ChatBotState();
-}
-
-class _ChatBotState extends State<ChatBot> {
-  final List<ChatMessage> _messages = [];
-  final String openAIKey =
-      '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';
-
-  get sk => null; // Replace with your OpenAI API Key
-
-  void _addMessage(String text, bool isUser) async {
-    setState(() {
-      _messages.add(ChatMessage(text: text, isUser: isUser));
-    });
-
-    if (isUser) {
-      try {
-        var key;
-        final response = await http.post(
-          Uri.parse('https://api.openai.com/v1/chat/completions'),
-          headers: {
-            'Authorization': 'Bearer $key',
-            'Content-Type': 'application/json',
-          },
-          body: jsonEncode({
-            "model": "gpt-3.5-turbo",
-            "messages": [
-              {
-                "role": "system",
-                "content":
-                    "You are a Skilled doctor with speciality in maternity help"
-              },
-              {"role": "user", "content": text}
-            ]
-          }),
-        );
-
-        print(response.body);
-
-        if (response.statusCode == 200) {
-          final data = jsonDecode(response.body);
-          final botResponse = data['choices'][0]['text'].toString().trim();
-          _addMessage(botResponse, false);
-        } else {
-          throw Exception('Failed to fetch response');
-        }
-      } catch (e) {
-        print('Error: $e');
-        _addMessage('Sorry, I encountered an issue. Please try again.', false);
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: SingleChildScrollView(
-              reverse: true,
-              child: Column(
-                children: _messages.map((message) {
-                  return message.isUser
-                      ? UserMessage(message.text)
-                      : BotMessage(message.text);
-                }).toList(),
+            body: FlutterMap(
+              options: MapOptions(
+                center: LatLng(0,
+                    0), // Initial center (will be updated to current location)
+                zoom: 15.0, // Zoom level
               ),
-            ),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Color.fromARGB(255, 216, 216, 216), // Light gray color
-            borderRadius:
-                BorderRadius.circular(30.0), // Optional: Add rounded corners
-          ),
-          padding: const EdgeInsets.all(16.0),
-          child: TextField(
-            onSubmitted: (text) {
-              _addMessage(text, true);
-            },
-            decoration: InputDecoration(
-              hintText: 'Type a message...',
-              suffixIcon: IconButton(
-                icon: const Icon(
-                  Icons.send,
-                  color: Colors.red, // Set the color to red
+              children: [
+                TileLayer(
+                  urlTemplate:
+                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  subdomains: ['a', 'b', 'c'],
                 ),
-                onPressed: () {
-                  // TODO: Handle sending the message
-                },
-              ),
+                MarkerLayer(markers: hospitalMarkers),
+              ],
             ),
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class ChatMessage {
-  final String text;
-  final bool isUser;
-
-  ChatMessage({required this.text, required this.isUser});
-}
-
-class UserMessage extends StatelessWidget {
-  final String text;
-
-  UserMessage(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8.0),
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: const Color(0xFFb7b6b6),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(color: Color.fromARGB(255, 112, 112, 112)),
-        ),
-      ),
-    );
-  }
-}
-
-class BotMessage extends StatelessWidget {
-  final String text;
-
-  BotMessage(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8.0),
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: const Color(0xFFb7b6b6),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(color: Color.fromARGB(255, 112, 112, 112)),
         ),
       ),
     );

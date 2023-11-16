@@ -116,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                               SizedBox(width: 8),
                               Text(
                                 ' F i n d  a\nHOSPITAL',
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 30),
                               ),
                             ],
                           ),
@@ -176,7 +176,7 @@ class HomeScreen extends StatelessWidget {
                               SizedBox(width: 8),
                               Text(
                                 'Maternity\nH  E  L  P',
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 30),
                               ),
                             ],
                           ),
@@ -209,7 +209,7 @@ class HomeScreen extends StatelessWidget {
                               Text(
                                 'C a l l  a\nDOCTOR',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 30,
                                 ),
                                 // textAlign: TextAlign.justify,
                               ),
