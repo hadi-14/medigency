@@ -78,6 +78,7 @@ class HelpPage extends StatelessWidget {
                 // Loader Section
                 Container(
                   padding: const EdgeInsets.all(16.0),
+                  alignment: Alignment.center,
                   color: Colors
                       .transparent, // Set the background color to transparent
                   child: Column(

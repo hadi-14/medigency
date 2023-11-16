@@ -12,7 +12,8 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   List<Marker> hospitalMarkers = [];
-  LatLng userLocation = LatLng(24.8573019, 67.0728381); // Initialize user's location with (0, 0)
+  LatLng userLocation =
+      LatLng(24.8573019, 67.0728381); // Initialize user's location with (0, 0)
 
   @override
   void initState() {
@@ -92,18 +93,22 @@ class _MapPageState extends State<MapPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Logo Placeholder
-                        Container(
-                          width: 150, // Set your desired width
-                          height: 50, // Set your desired height
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/logo_text.png'), // Replace with your logo
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pop(); // Navigate to main page
+                          },
+                          child: Container(
+                            width: 150, // Set your desired width
+                            height: 50, // Set your desired height
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/logo_text.png'), // Replace with your logo
+                              ),
                             ),
                           ),
-                        ),
-                        // Profile Icon and Name
+                        ), // Profile Icon and Name
                         const Column(
                           children: [
                             SizedBox(height: 2),
@@ -128,20 +133,22 @@ class _MapPageState extends State<MapPage> {
               ),
             ),
             body: FlutterMap(
-        options: MapOptions(
-          center: userLocation, // Set the map's center to user's location
-          zoom: 15.0, // Zoom level
-        ),
-        children: [
-          TileLayer(
-            urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            subdomains: ['a', 'b', 'c'],
+              options: MapOptions(
+                center: userLocation, // Set the map's center to user's location
+                zoom: 15.0, // Zoom level
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate:
+                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  subdomains: ['a', 'b', 'c'],
+                ),
+                MarkerLayer(markers: hospitalMarkers),
+              ],
+            ),
           ),
-          MarkerLayer(markers: hospitalMarkers),
-        ],
-      ),),
         ),
       ),
     );
-        }
+  }
 }
