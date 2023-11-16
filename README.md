@@ -1,6 +1,6 @@
-# medigency
+# MEDIGENCY
 
-A new Flutter project.
+Your one click access to instant Medical help
 
 ## Getting Started
 
