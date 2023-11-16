@@ -94,40 +94,40 @@ class _ChatBotState extends State<ChatBot> {
     });
 
     if (isUser) {
-      try {
-        var key;
-        final response = await http.post(
-          Uri.parse('https://api.openai.com/v1/chat/completions'),
-          headers: {
-            'Authorization': 'Bearer $key',
-            'Content-Type': 'application/json',
-          },
-          body: jsonEncode({
-            "model": "gpt-3.5-turbo",
-            "messages": [
-              {
-                "role": "system",
-                "content":
-                    "You are a Skilled doctor with speciality in maternity help"
-              },
-              {"role": "user", "content": text}
-            ]
-          }),
-        );
+      // try {
+      //   var key;
+      //   final response = await http.post(
+      //     Uri.parse('https://api.openai.com/v1/chat/completions'),
+      //     headers: {
+      //       'Authorization': 'Bearer $key',
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: jsonEncode({
+      //       "model": "gpt-3.5-turbo",
+      //       "messages": [
+      //         {
+      //           "role": "system",
+      //           "content":
+      //               "You are a Skilled doctor with speciality in maternity help"
+      //         },
+      //         {"role": "user", "content": text}
+      //       ]
+      //     }),
+      //   );
 
-        print(response.body);
+      //   print(response.body);
 
-        if (response.statusCode == 200) {
-          final data = jsonDecode(response.body);
-          final botResponse = data['choices'][0]['text'].toString().trim();
-          _addMessage(botResponse, false);
-        } else {
-          throw Exception('Failed to fetch response');
-        }
-      } catch (e) {
-        print('Error: $e');
+      //   if (response.statusCode == 200) {
+      //     final data = jsonDecode(response.body);
+      //     final botResponse = data['choices'][0]['text'].toString().trim();
+      //     _addMessage(botResponse, false);
+      //   } else {
+      //     throw Exception('Failed to fetch response');
+      //   }
+      // } catch (e) {
+      //   print('Error: $e');
         _addMessage('Hi, I am Medigency!, take care of yourself and others', false);
-      }
+      // }
     }
   }
 
@@ -166,7 +166,7 @@ class _ChatBotState extends State<ChatBot> {
                     _addMessage(text, true);
                     _controller.clear(); // Clear the text field after sending the message
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Ask your problem....',
                   ),
                 ),
@@ -212,12 +212,12 @@ class UserMessage extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 8.0),
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: const Color(0xFFb7b6b6),
+          color: const Color.fromARGB(255, 223, 221, 221),
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Text(
           text,
-          style: const TextStyle(color: Color.fromARGB(255, 112, 112, 112)),
+          style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
         ),
       ),
     );
@@ -237,12 +237,12 @@ class BotMessage extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 8.0),
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: const Color(0xFFb7b6b6),
+          color: const Color.fromARGB(255, 223, 221, 221),
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Text(
           text,
-          style: const TextStyle(color: Color.fromARGB(255, 112, 112, 112)),
+          style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
         ),
       ),
     );

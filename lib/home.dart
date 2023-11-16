@@ -202,7 +202,7 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             ElevatedButton(
                               onPressed: () {
-                                // Handle the onPressed for Button 4
+                                Navigator.pushNamed(context, '/call');
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFFb7b6b6),

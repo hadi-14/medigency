@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HelpPage extends StatelessWidget {
-  const HelpPage({Key? key}) : super(key: key);
+class CallPage extends StatelessWidget {
+  const CallPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -101,12 +101,16 @@ class HelpPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const Text('Bringing Your Help...\nPlease be patient!',
-                          style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.red,
-                          ), // Set the text color to white
-                          textAlign: TextAlign.center),
+                      const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.phone, size: 36, color: Colors.red),
+                            SizedBox(width: 8),
+                            Text(
+                              'Connecting to your Doctor...',
+                              style: TextStyle(fontSize: 24, color: Colors.red),
+                            ),
+                          ]),
                     ],
                   ),
                 ),
