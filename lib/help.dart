@@ -66,13 +66,13 @@ class _HelpPageState extends State<HelpPage> {
                         ), // Profile Icon and Name
                         Column(
                           children: [
-                            const SizedBox(height: 2),
+                            const SizedBox(height: 1),
                             const Icon(
                               Icons.person_rounded,
                               size: 35,
                               color: Color.fromARGB(255, 112, 112, 112),
                             ),
-                            const SizedBox(height: 3),
+                            const SizedBox(height: 1),
                             Text(
                               userName, // Replace with the actual name
                               style: const TextStyle(

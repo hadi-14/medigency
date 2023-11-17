@@ -18,7 +18,52 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     super.initState();
-    fetchUserLocation();
+    checkLocationPermission();
+  }
+
+  Future<void> checkLocationPermission() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if (!serviceEnabled) {
+      // If location services are not enabled, show a dialog to enable them
+      showLocationServiceAlertDialog();
+    } else {
+      requestLocationPermission();
+    }
+  }
+
+  void showLocationServiceAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Location Service Disabled"),
+          content: Text("Please enable location services to use this feature."),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Open the device settings to enable location services
+                Geolocator.openAppSettings();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> requestLocationPermission() async {
+    LocationPermission permission = await Geolocator.requestPermission();
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      // Handle the case where the user denies location access
+      // You can show a message or take appropriate action
+    } else {
+      fetchUserLocation();
+    }
   }
 
   Future<void> fetchUserLocation() async {
@@ -108,18 +153,18 @@ class _MapPageState extends State<MapPage> {
                               ),
                             ),
                           ),
-                        ), // Profile Icon and Name
+                        ),
                         const Column(
                           children: [
-                            SizedBox(height: 2),
+                            SizedBox(height: 1),
                             Icon(
                               Icons.person_rounded,
                               size: 35,
                               color: Color.fromARGB(255, 112, 112, 112),
                             ),
-                            SizedBox(height: 3),
+                            SizedBox(height: 1),
                             Text(
-                              'Abdullah', // Replace with the actual name
+                              '', // Replace with the actual name
                               style: TextStyle(
                                   color: Color.fromARGB(255, 112, 112, 112),
                                   fontSize: 10),

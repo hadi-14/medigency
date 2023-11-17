@@ -72,13 +72,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         // Profile Icon and Name
                         Column(
                           children: [
-                            const SizedBox(height: 2),
+                            const SizedBox(height: 1),
                             const Icon(
                               Icons.person_rounded,
                               size: 35,
                               color: Color.fromARGB(255, 112, 112, 112),
                             ),
-                            const SizedBox(height: 3),
+                            const SizedBox(height: 1),
                             Text(
                               userName, // Replace with the actual name
                               style: const TextStyle(
@@ -175,6 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
                             minimumSize: const Size(double.infinity,
                                 130), // Adjust the height as needed
                             padding: const EdgeInsets.symmetric(

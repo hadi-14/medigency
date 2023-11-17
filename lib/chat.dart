@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+void main() {
+  runApp(const MaterialApp(
+    home: ChatPage(),
+  ));
+}
+
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
 
@@ -10,11 +16,10 @@ class ChatPage extends StatefulWidget {
   _ChatPageState createState() => _ChatPageState();
 }
 
-
 class _ChatPageState extends State<ChatPage> {
   late String userName = ''; // Variable to hold the user's name
 
-    @override
+  @override
   void initState() {
     super.initState();
     loadUserName(); // Load the username when the widget initializes
@@ -29,7 +34,6 @@ class _ChatPageState extends State<ChatPage> {
           ''; // Default to empty string if no username is found
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,7 @@ class _ChatPageState extends State<ChatPage> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context)
-                                .pop(); // Navigate to main page
+                                .pop(); // Navigate to the main page
                           },
                           child: Container(
                             width: 150, // Set your desired width
@@ -70,13 +74,13 @@ class _ChatPageState extends State<ChatPage> {
                         ), // Profile Icon and Name
                         Column(
                           children: [
-                            const SizedBox(height: 2),
+                            const SizedBox(height: 1),
                             const Icon(
                               Icons.person_rounded,
                               size: 35,
                               color: Color.fromARGB(255, 112, 112, 112),
                             ),
-                            const SizedBox(height: 3),
+                            const SizedBox(height: 1),
                             Text(
                               userName,
                               style: const TextStyle(
@@ -115,47 +119,46 @@ class _ChatBotState extends State<ChatBot> {
   final List<ChatMessage> _messages = [];
   final TextEditingController _controller = TextEditingController();
 
-  void _addMessage(String text, bool isUser) async {
+  void _addMessage(String text, bool isUser) {
     setState(() {
       _messages.add(ChatMessage(text: text, isUser: isUser));
     });
 
     if (isUser) {
-      // try {
-      //   var key;
-      //   final response = await http.post(
-      //     Uri.parse('https://api.openai.com/v1/chat/completions'),
-      //     headers: {
-      //       'Authorization': 'Bearer $key',
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: jsonEncode({
-      //       "model": "gpt-3.5-turbo",
-      //       "messages": [
-      //         {
-      //           "role": "system",
-      //           "content":
-      //               "You are a Skilled doctor with speciality in maternity help"
-      //         },
-      //         {"role": "user", "content": text}
-      //       ]
-      //     }),
-      //   );
-
-      //   print(response.body);
-
-      //   if (response.statusCode == 200) {
-      //     final data = jsonDecode(response.body);
-      //     final botResponse = data['choices'][0]['text'].toString().trim();
-      //     _addMessage(botResponse, false);
-      //   } else {
-      //     throw Exception('Failed to fetch response');
-      //   }
-      // } catch (e) {
-      //   print('Error: $e');
-      _addMessage(
-          'Hi, I am Medigency!, take care of yourself and others', false);
-      // }
+      // Check for fixed pregnancy-related questions and provide fixed answers
+      switch (text.toLowerCase()) {
+        case 'what should I eat during pregnancy?':
+          _addMessage(
+              'It is essential to have a balanced diet including fruits, vegetables, whole grains, and lean proteins. Consult your doctor for personalized advice.',
+              false);
+          break;
+        case 'how much weight should I gain during pregnancy?':
+          _addMessage(
+              'The recommended weight gain during pregnancy varies. Your doctor can provide guidance based on your individual circumstances.',
+              false);
+          break;
+        case 'what exercises are safe during pregnancy?':
+          _addMessage(
+              'Low-impact exercises like walking, swimming, and prenatal yoga are generally safe. However, consult your doctor before starting any new exercise routine.',
+              false);
+          break;
+        case 'how can I deal with morning sickness?':
+          _addMessage(
+              'Try eating small, frequent meals and staying hydrated. Ginger and peppermint may also help. Consult your doctor for specific advice.',
+              false);
+          break;
+        case 'what should I avoid during pregnancy?':
+          _addMessage(
+              'Avoid alcohol, smoking, and certain medications. Limit caffeine intake and be cautious with certain foods like raw seafood and unpasteurized dairy.',
+              false);
+          break;
+        default:
+          // If the question is not fixed, provide a generic response
+          _addMessage(
+              'It is essential to have a balanced diet including fruits, vegetables, whole grains, and lean proteins. Consult your doctor for personalized advice.',
+              false);
+          break;
+      }
     }
   }
 

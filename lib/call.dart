@@ -66,13 +66,13 @@ class _CallPageState extends State<CallPage> {
                         ), // Profile Icon and Name
                         Column(
                           children: [
-                            const SizedBox(height: 2),
+                            const SizedBox(height: 1),
                             const Icon(
                               Icons.person_rounded,
                               size: 35,
                               color: Color.fromARGB(255, 112, 112, 112),
                             ),
-                            const SizedBox(height: 3),
+                            const SizedBox(height: 1),
                             Text(
                               userName, // Replace with the actual name
                               style: const TextStyle(
@@ -132,7 +132,7 @@ class _CallPageState extends State<CallPage> {
                             SizedBox(width: 8),
                             Text(
                               'Connecting to your Doctor...',
-                              style: TextStyle(fontSize: 24, color: Colors.red),
+                              style: TextStyle(fontSize: 22, color: Colors.red),
                             ),
                           ]),
                     ],
