@@ -125,7 +125,7 @@ class _HelpPageState extends State<HelpPage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const Text('Bringing Your Help...\nPlease be patient!',
+                      const Text('Bringing Your Help...\nJust Relax!',
                           style: TextStyle(
                             fontSize: 30,
                             color: Colors.red,

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           return MaterialApp(
             initialRoute:
-                snapshot.hasData && snapshot.data == true ? '/form' : '/',
+                snapshot.hasData && snapshot.data == true ? '/' : '/form',
             routes: {
               '/': (context) => HomeScreen(),
               '/chat': (context) => const ChatPage(),
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 
   Future<bool> _checkLocalDataExists() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.get('name'));
+    print(prefs.containsKey('name'));
     return prefs.containsKey('name');
   }
 }

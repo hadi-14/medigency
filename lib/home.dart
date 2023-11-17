@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> loadUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('name'));
     setState(() {
       // Retrieve the username from local storage
       userName = prefs.getString('name') ??
