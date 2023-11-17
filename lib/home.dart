@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'chat.dart';
 import 'help.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late String userName = ''; // Variable to hold the user's name
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserName(); // Load the username when the widget initializes
+  }
+
+  Future<void> loadUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('name'));
+    setState(() {
+      // Retrieve the username from local storage
+      userName = prefs.getString('name') ??
+          ''; // Default to empty string if no username is found
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    // Ensure the username is loaded before building the UI
+    if (userName.isEmpty) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(), // Or any loading indicator
+        ),
+      );
+    }
+
     return MaterialApp(
       home: Scaffold(
         body: SafeArea(
@@ -38,18 +71,18 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         // Profile Icon and Name
-                        const Column(
+                        Column(
                           children: [
-                            SizedBox(height: 2),
-                            Icon(
+                            const SizedBox(height: 2),
+                            const Icon(
                               Icons.person_rounded,
                               size: 35,
                               color: Color.fromARGB(255, 112, 112, 112),
                             ),
-                            SizedBox(height: 3),
+                            const SizedBox(height: 3),
                             Text(
-                              'Abdullah', // Replace with the actual name
-                              style: TextStyle(
+                              userName, // Replace with the actual name
+                              style: const TextStyle(
                                   color: Color.fromARGB(255, 112, 112, 112),
                                   fontSize: 10),
                             ),
@@ -64,21 +97,21 @@ class HomeScreen extends StatelessWidget {
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
                       16.0, 16.0, 16.0, 0.0), // Adjust the padding as needed
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Hello!', // Larger text
                         style: TextStyle(
                             fontSize: 40, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
-                        '   Abdullah', // Next line text
-                        style: TextStyle(fontSize: 35),
+                        "    $userName", // Next line text
+                        style: const TextStyle(fontSize: 35),
                       ),
                     ],
                   ),

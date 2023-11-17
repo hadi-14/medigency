@@ -31,6 +31,15 @@ class _FormPageState extends State<FormPage> {
     await prefs.setString(
         'dateOfBirth', _dateOfBirth != null ? _dateOfBirth.toString() : '');
     await prefs.setString('medicalDetails', _medicalDetails ?? '');
+
+    Navigator.pushReplacementNamed(context, '/');
+  }
+
+  OutlineInputBorder redBorder() {
+    return OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.red, width: 1.0),
+      borderRadius: BorderRadius.circular(8.0),
+    );
   }
 
   @override
@@ -78,13 +87,6 @@ class _FormPageState extends State<FormPage> {
                               size: 35,
                               color: Color.fromARGB(255, 112, 112, 112),
                             ),
-                            SizedBox(height: 3),
-                            Text(
-                              'Abdullah', // Replace with the actual name
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 112, 112, 112),
-                                  fontSize: 10),
-                            ),
                           ],
                         ),
                       ],
@@ -98,54 +100,17 @@ class _FormPageState extends State<FormPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TextFormField(
-                    onChanged: (value) => _name = value,
-                    decoration: InputDecoration(labelText: 'Name'),
-                  ),
-                  TextFormField(
-                    onChanged: (value) => _address = value,
-                    decoration: InputDecoration(labelText: 'Address'),
-                  ),
-                  TextFormField(
-                    onChanged: (value) => _bloodGroup = value,
-                    decoration: InputDecoration(labelText: 'Blood Group'),
-                  ),
-                  TextFormField(
-                    onChanged: (value) => _cnic = int.tryParse(value),
-                    decoration: InputDecoration(labelText: 'CNIC Number'),
-                    keyboardType: TextInputType.number,
-                  ),
-                  TextFormField(
-                    onChanged: (value) => _phoneNumber = value,
-                    decoration: InputDecoration(labelText: 'Phone Number'),
-                    keyboardType: TextInputType.phone,
-                  ),
-                  TextFormField(
-                    onChanged: (value) => _emergencyContact = value,
-                    decoration: InputDecoration(labelText: 'Emergency Contact'),
-                    keyboardType: TextInputType.phone,
-                  ),
-                  TextFormField(
-                    onChanged: (value) => _gender = value,
-                    decoration: InputDecoration(labelText: 'Gender'),
-                  ),
-                  TextFormField(
-                    onChanged: (value) {
-                      // Assuming date is entered as text in format 'YYYY-MM-DD'
-                      if (value.isNotEmpty) {
-                        _dateOfBirth = DateTime.tryParse(value);
-                      }
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Date of Birth (YYYY-MM-DD)'),
-                    keyboardType: TextInputType.datetime,
-                  ),
-                  TextFormField(
-                    onChanged: (value) => _medicalDetails = value,
-                    decoration: InputDecoration(labelText: 'Medical Details'),
-                    maxLines: null, // Allow multiple lines for medical details
-                  ),
-                  SizedBox(height: 20.0),
+                  buildTextFormField('Name'),
+                  buildTextFormField('Address'),
+                  buildTextFormField('Blood Group'),
+                  buildTextFormField('CNIC Number', TextInputType.number),
+                  buildTextFormField('Phone Number', TextInputType.phone),
+                  buildTextFormField('Emergency Contact', TextInputType.phone),
+                  buildTextFormField('Gender'),
+                  buildTextFormField(
+                      'Date of Birth (YYYY-MM-DD)', TextInputType.datetime),
+                  buildTextFormField('Medical Details'),
+                  const SizedBox(height: 20.0),
                   GestureDetector(
                     onTap: _saveUserData,
                     child: Container(
@@ -155,7 +120,7 @@ class _FormPageState extends State<FormPage> {
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Save',
                         style: TextStyle(
                           color: Colors.white,
@@ -171,6 +136,59 @@ class _FormPageState extends State<FormPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildTextFormField(String labelText,
+      [TextInputType? keyboardType, int? maxLines]) {
+    return TextFormField(
+      onChanged: (value) {
+        switch (labelText) {
+          case 'Name':
+            _name = value;
+            break;
+          case 'Address':
+            _address = value;
+            break;
+          case 'Blood Group':
+            _bloodGroup = value;
+            break;
+          case 'CNIC Number':
+            _cnic = int.tryParse(value);
+            break;
+          case 'Phone Number':
+            _phoneNumber = value;
+            break;
+          case 'Emergency Contact':
+            _emergencyContact = value;
+            break;
+          case 'Gender':
+            _gender = value;
+            break;
+          case 'Date of Birth (YYYY-MM-DD)':
+            if (value.isNotEmpty) {
+              _dateOfBirth = DateTime.tryParse(value);
+            }
+            break;
+          case 'Medical Details':
+            _medicalDetails = value;
+            break;
+          default:
+            break;
+        }
+      },
+      decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: const TextStyle(color: Colors.black),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+      ),
+      keyboardType: keyboardType,
+      maxLines: maxLines,
     );
   }
 }

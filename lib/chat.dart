@@ -1,9 +1,35 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
+
+  @override
+  _ChatPageState createState() => _ChatPageState();
+}
+
+
+class _ChatPageState extends State<ChatPage> {
+  late String userName = ''; // Variable to hold the user's name
+
+    @override
+  void initState() {
+    super.initState();
+    loadUserName(); // Load the username when the widget initializes
+  }
+
+  Future<void> loadUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('name'));
+    setState(() {
+      // Retrieve the username from local storage
+      userName = prefs.getString('name') ??
+          ''; // Default to empty string if no username is found
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +54,8 @@ class ChatPage extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pop(); // Navigate to main page
+                            Navigator.of(context)
+                                .pop(); // Navigate to main page
                           },
                           child: Container(
                             width: 150, // Set your desired width
@@ -41,18 +68,18 @@ class ChatPage extends StatelessWidget {
                             ),
                           ),
                         ), // Profile Icon and Name
-                        const Column(
+                        Column(
                           children: [
-                            SizedBox(height: 2),
-                            Icon(
+                            const SizedBox(height: 2),
+                            const Icon(
                               Icons.person_rounded,
                               size: 35,
                               color: Color.fromARGB(255, 112, 112, 112),
                             ),
-                            SizedBox(height: 3),
+                            const SizedBox(height: 3),
                             Text(
-                              'Abdullah',
-                              style: TextStyle(
+                              userName,
+                              style: const TextStyle(
                                 color: Color.fromARGB(255, 112, 112, 112),
                                 fontSize: 10,
                               ),
@@ -126,7 +153,8 @@ class _ChatBotState extends State<ChatBot> {
       //   }
       // } catch (e) {
       //   print('Error: $e');
-        _addMessage('Hi, I am Medigency!, take care of yourself and others', false);
+      _addMessage(
+          'Hi, I am Medigency!, take care of yourself and others', false);
       // }
     }
   }
@@ -154,7 +182,8 @@ class _ChatBotState extends State<ChatBot> {
         Container(
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 216, 216, 216), // Light gray color
-            borderRadius: BorderRadius.circular(30.0), // Optional: Add rounded corners
+            borderRadius:
+                BorderRadius.circular(30.0), // Optional: Add rounded corners
           ),
           padding: const EdgeInsets.all(16.0),
           child: Row(
@@ -164,7 +193,8 @@ class _ChatBotState extends State<ChatBot> {
                   controller: _controller,
                   onSubmitted: (text) {
                     _addMessage(text, true);
-                    _controller.clear(); // Clear the text field after sending the message
+                    _controller
+                        .clear(); // Clear the text field after sending the message
                   },
                   decoration: const InputDecoration(
                     hintText: 'Ask your problem....',
@@ -180,7 +210,8 @@ class _ChatBotState extends State<ChatBot> {
                   final textToSend = _controller.text.trim();
                   if (textToSend.isNotEmpty) {
                     _addMessage(textToSend, true);
-                    _controller.clear(); // Clear the text field after sending the message
+                    _controller
+                        .clear(); // Clear the text field after sending the message
                   }
                 },
               ),

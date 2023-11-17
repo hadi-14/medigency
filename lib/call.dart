@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CallPage extends StatelessWidget {
+class CallPage extends StatefulWidget {
   const CallPage({Key? key}) : super(key: key);
+
+  @override
+  _CallPageState createState() => _CallPageState();
+}
+
+class _CallPageState extends State<CallPage> {
+  late String userName = ''; // Variable to hold the user's name
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserName(); // Load the username when the widget initializes
+  }
+
+  Future<void> loadUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('name'));
+    setState(() {
+      // Retrieve the username from local storage
+      userName = prefs.getString('name') ??
+          ''; // Default to empty string if no username is found
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +64,18 @@ class CallPage extends StatelessWidget {
                             ),
                           ),
                         ), // Profile Icon and Name
-                        const Column(
+                        Column(
                           children: [
-                            SizedBox(height: 2),
-                            Icon(
+                            const SizedBox(height: 2),
+                            const Icon(
                               Icons.person_rounded,
                               size: 35,
                               color: Color.fromARGB(255, 112, 112, 112),
                             ),
-                            SizedBox(height: 3),
+                            const SizedBox(height: 3),
                             Text(
-                              'Abdullah', // Replace with the actual name
-                              style: TextStyle(
+                              userName, // Replace with the actual name
+                              style: const TextStyle(
                                   color: Color.fromARGB(255, 112, 112, 112),
                                   fontSize: 10),
                             ),
